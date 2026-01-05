@@ -22,6 +22,22 @@ public class OnCallController {
 
     public void run() {
         initOnCallMonthAndStartDayOfWeek();
+        initOnCallWeekdayCrews();
+    }
+
+    private void initOnCallWeekdayCrews() {
+        while (true) {
+            try {
+                String input = inputView.inputWeekdayCrews();
+                List<String> crews = InputConverter.convertInputToList(input);
+                Validator.validateCrewSize(crews);
+                Validator.validateCrewNameSize(crews);
+                onCallService.saveWeekdayCrews(crews);
+                return;
+            } catch (IllegalArgumentException exception) {
+                outputView.printError(exception.getMessage());
+            }
+        }
     }
 
     private void initOnCallMonthAndStartDayOfWeek() {

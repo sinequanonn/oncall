@@ -1,6 +1,7 @@
 package oncall;
 
 import oncall.controller.OnCallController;
+import oncall.repository.CrewRepository;
 import oncall.repository.DayOfWeekRepository;
 import oncall.repository.ResultRepository;
 import oncall.service.OnCallService;
@@ -30,6 +31,7 @@ public class AppConfig {
     private OnCallService onCallService() {
         if (onCallService == null) {
             onCallService = new OnCallService(
+                    new CrewRepository(),
                     new ResultRepository(),
                     new DayOfWeekRepository()
             );
