@@ -24,4 +24,15 @@ public class Validator {
             }
         }
     }
+
+    public static void validateDuplicateName(List<String> crews) {
+        for (String name : crews) {
+            long count = crews.stream()
+                    .filter(crew -> crew.equals(name))
+                    .count();
+            if (count > 1) {
+                throw new IllegalArgumentException(ErrorMessage.DUPLICATE_CREW.getMessage());
+            }
+        }
+    }
 }

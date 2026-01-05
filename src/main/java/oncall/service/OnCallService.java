@@ -1,6 +1,7 @@
 package oncall.service;
 
 import oncall.domain.Month;
+import oncall.exception.ErrorMessage;
 import oncall.repository.CrewRepository;
 import oncall.repository.DayOfWeekRepository;
 import oncall.repository.ResultRepository;
@@ -28,6 +29,13 @@ public class OnCallService {
     }
 
     public void saveWeekdayCrews(List<String> crews) {
+        Validator.validateDuplicateName(crews);
         crewRepository.saveWeekdayCrews(crews);
+    }
+
+    public void saveWeekendCrews(List<String> crews) {
+        if (!crewRepository.isSameSize(crews.size())) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_WEEKEND_CREW_SIZE.getMessage());
+        }
     }
 }
