@@ -25,16 +25,18 @@ public class OnCallController {
     }
 
     private void initOnCallMonthAndStartDayOfWeek() {
-        inputMonthAndDayOfWeek();
-    }
-
-    private List<String> inputMonthAndDayOfWeek() {
-        return execute(() -> {
-            String input = inputView.inputMonthAndDayOfWeek();
-            List<String> monthAndDayOfWeek = InputConverter.convertInputToList(input);
-            Validator.validateMonthAndDayOfWeekSize(monthAndDayOfWeek);
-            return monthAndDayOfWeek;
-        });
+        while (true) {
+            try {
+                String input = inputView.inputMonthAndDayOfWeek();
+                List<String> monthAndDayOfWeek = InputConverter.convertInputToList(input);
+                Validator.validateMonthAndDayOfWeekSize(monthAndDayOfWeek);
+                onCallService.saveMonth(InputConverter.convertStrToInt(monthAndDayOfWeek.get(0)));
+                onCallService.saveDayOfWeek(monthAndDayOfWeek.get(1));
+                return;
+            } catch (IllegalArgumentException exception) {
+                outputView.printError(exception.getMessage());
+            }
+        }
     }
 
 
