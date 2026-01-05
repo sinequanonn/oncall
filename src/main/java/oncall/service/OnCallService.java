@@ -34,6 +34,18 @@ public class OnCallService {
     }
 
     public void saveWeekendCrews(List<String> crews) {
+        validateCrewSize(crews);
+        validateSameCrew(crews);
+        crewRepository.saveWeekendCrews(crews);
+    }
+
+    private void validateSameCrew(List<String> crews) {
+        if (!crewRepository.isEqualCrews(crews)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_WEEKEND_CREW.getMessage());
+        }
+    }
+
+    private void validateCrewSize(List<String> crews) {
         if (!crewRepository.isSameSize(crews.size())) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_WEEKEND_CREW_SIZE.getMessage());
         }

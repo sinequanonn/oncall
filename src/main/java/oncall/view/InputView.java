@@ -20,4 +20,9 @@ public class InputView {
         System.out.print(INPUT_WEEKDAY_CREWS);
         return Console.readLine();
     }
+
+    public String inputWeekendCrews() {
+        System.out.print(INPUT_WEEKEND_CREWS);
+        return Console.readLine();
+    }
 }
