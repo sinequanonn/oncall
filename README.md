@@ -5,13 +5,13 @@
 ---
 ## 도메인 추출하기
 - OnCall(비상근무일)
-    - int day(일)
-    - String dayOfWeek(요일);
-    - String crew(크루);
-    - boolean holiday(휴일여부);
+  - int day(일)
+  - String dayOfWeek(요일);
+  - String crew(크루);
+  - boolean holiday(휴일여부);
 - CrewRepository(크루 저장소)
-    - List<String> weekdayCrews : 평일 순번
-    - List<String> weekendCrews : 주말 순번
+  - List<String> weekdayCrews : 평일 순번
+  - List<String> weekendCrews : 주말 순번
 - ResultRepository(결과 저장소)
   - Month month
   - List<OnCall> onCalls;
@@ -31,12 +31,14 @@
     12월 25일
     ```
 ## 기능 구현 목록
-- [ ] 사용자로부터 비상 근무를 배정할 월과 시작 요일을 입력 받는다.
+- [x] 사용자로부터 비상 근무를 배정할 월과 시작 요일을 입력 받는다.
+- [x] 비상 근무 배정할 월을 저장한다.
   - 월은 1과 12 사이의 숫자이다.
+- [x] 비상 근무 배정할 월의 시작 요일을 저장한다.
   - 요일은 `일, 월, 화, 수, 목, 금, 토`이다.
   - 이외의 입력이 들어오는 경우 예외를 발생시키고, 다시 입력 받는다.
-- [ ] 사용자로부터 평일 비상 근무 순번대로 사원 닉네임을 입력 받는다.
-- [ ] 사용자로부터 휴일 비상 근무 순번대로 사원 닉네임을 입력 받는다.
+- [x] 사용자로부터 평일 비상 근무 순번대로 사원 닉네임을 입력 받는다.
+- [x] 사용자로부터 휴일 비상 근무 순번대로 사원 닉네임을 입력 받는다.
   - 평일 또는 휴일에 같은 사원이 2번 이상 들어갈 수 없다.
   - 사원의 구분 정보는 닉네임이다.
   - 사원 닉네임은 최대 5자이다.
