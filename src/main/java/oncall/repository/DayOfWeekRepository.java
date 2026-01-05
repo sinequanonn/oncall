@@ -14,4 +14,9 @@ public class DayOfWeekRepository {
         }
         this.order = dayOfWeeks.indexOf(dayOfWeek);
     }
+
+    public boolean checkTodayIsWeekday() {
+        String dayOfWeek = dayOfWeeks.get(order);
+        return !dayOfWeek.equals("토") && !dayOfWeek.equals("일");
+    }
 }
