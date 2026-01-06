@@ -19,4 +19,10 @@ public class DayOfWeekRepository {
         String dayOfWeek = dayOfWeeks.get(order);
         return !dayOfWeek.equals("토") && !dayOfWeek.equals("일");
     }
+
+    public String getDayOfWeek() {
+        String dayOfWeek = dayOfWeeks.get(order);
+        order = (order + 1) % 7;
+        return dayOfWeek;
+    }
 }

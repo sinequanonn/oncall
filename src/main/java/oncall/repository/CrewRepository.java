@@ -1,7 +1,5 @@
 package oncall.repository;
 
-import oncall.exception.ErrorMessage;
-
 import java.util.List;
 
 public class CrewRepository {
@@ -30,5 +28,35 @@ public class CrewRepository {
             }
         }
         return true;
+    }
+
+    public boolean checkDuplicateNextWeekendCrew(String lastCrew) {
+        return weekendCrews.get(0).equals(lastCrew);
+    }
+
+    public void changeWeekendOrder() {
+        String crew = weekendCrews.remove(0);
+        weekendCrews.add(1, crew);
+    }
+
+    public String getWeekendCrew() {
+        String crew = weekendCrews.remove(0);
+        weekendCrews.add(crew);
+        return crew;
+    }
+
+    public boolean checkDuplicateNextWeekdayCrew(String lastCrew) {
+        return weekdayCrews.get(0).equals(lastCrew);
+    }
+
+    public void changeWeekdayOrder() {
+        String crew = weekdayCrews.remove(0);
+        weekdayCrews.add(1, crew);
+    }
+
+    public String getWeekdayCrew() {
+        String crew = weekdayCrews.remove(0);
+        weekdayCrews.add(crew);
+        return crew;
     }
 }

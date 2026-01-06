@@ -12,4 +12,12 @@ public class ResultRepository {
     public void saveMonth(oncall.domain.Month month) {
         this.month = month;
     }
+
+    public Month getMonth() {
+        return month;
+    }
+
+    public void addOnCall(OnCall onCall) {
+        onCalls.add(onCall);
+    }
 }

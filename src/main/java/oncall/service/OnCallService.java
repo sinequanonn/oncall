@@ -1,6 +1,9 @@
 package oncall.service;
 
+import oncall.domain.Holiday;
+import oncall.dto.LastCrew;
 import oncall.domain.Month;
+import oncall.domain.OnCall;
 import oncall.exception.ErrorMessage;
 import oncall.repository.CrewRepository;
 import oncall.repository.DayOfWeekRepository;
@@ -49,5 +52,39 @@ public class OnCallService {
         if (!crewRepository.isSameSize(crews.size())) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_WEEKEND_CREW_SIZE.getMessage());
         }
+    }
+
+    public void makeTodayOnCall(boolean isWeekday, boolean isHoliday) {
+
+    }
+
+    public Month findMonth() {
+        return resultRepository.getMonth();
+    }
+
+    public boolean checkTodayIsWeekday() {
+        return dayOfWeekRepository.checkTodayIsWeekday();
+    }
+
+    public boolean checkTodayIsHoliday(Month month, int day) {
+        return Holiday.contains(month.getMonth(), day);
+    }
+
+    public void makeWeekendOnCall(int day, LastCrew lastCrew, boolean isHoliday) {
+        String dayOfWeek = dayOfWeekRepository.getDayOfWeek();
+        if (crewRepository.checkDuplicateNextWeekendCrew(lastCrew.getLastCrew())) {
+            crewRepository.changeWeekendOrder();
+        }
+        String crew = crewRepository.getWeekendCrew();
+        resultRepository.addOnCall(new OnCall(day, dayOfWeek, crew, isHoliday));
+    }
+
+    public void makeWeekdayOnCall(int day, LastCrew lastCrew) {
+        String dayOfWeek = dayOfWeekRepository.getDayOfWeek();
+        if (crewRepository.checkDuplicateNextWeekdayCrew(lastCrew.getLastCrew())) {
+            crewRepository.changeWeekdayOrder();
+        }
+        String crew = crewRepository.getWeekdayCrew();
+        resultRepository.addOnCall(new OnCall(day, dayOfWeek, crew, false));
     }
 }

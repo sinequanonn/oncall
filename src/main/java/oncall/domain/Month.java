@@ -31,4 +31,12 @@ public enum Month {
         }
         return Month.values()[month - 1];
     }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getLastDay() {
+        return lastDay;
+    }
 }

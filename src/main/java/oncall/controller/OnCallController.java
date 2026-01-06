@@ -1,5 +1,7 @@
 package oncall.controller;
 
+import oncall.domain.Month;
+import oncall.dto.LastCrew;
 import oncall.service.OnCallService;
 import oncall.utils.InputConverter;
 import oncall.utils.Validator;
@@ -24,6 +26,27 @@ public class OnCallController {
         initOnCallMonthAndStartDayOfWeek();
         initOnCallWeekdayCrews();
         initOnCallWeekendCrews();
+
+        executeOnCallProcess();
+    }
+
+    private void executeOnCallProcess() {
+        Month month = onCallService.findMonth();
+        LastCrew lastCrew = LastCrew.init();
+        for (int day = 1; day <= month.getLastDay(); day++) {
+            makeTodayOnCall(month, day, lastCrew);
+        }
+    }
+
+    private void makeTodayOnCall(Month month, int day, LastCrew lastCrew) {
+        boolean isHoliday = onCallService.checkTodayIsHoliday(month, day);
+        boolean isWeekday = onCallService.checkTodayIsWeekday();
+        // 평일이면서 법정 공휴일인 경우
+        if (isWeekday && !isHoliday) {
+            onCallService.makeWeekdayOnCall(day, lastCrew);
+            return;
+        }
+        onCallService.makeWeekendOnCall(day, lastCrew, isHoliday);
     }
 
     private void initOnCallWeekendCrews() {
